@@ -11,7 +11,7 @@ export default defineConfig({
     // --- THIS IS WHERE THE FULL URL GOES ---
     proxy: {
       '/api': {
-        target: `http://localhost:${BACKEND_PORT}`, // The target server
+        target: "https://shopsphere-ckoo.onrender.com", // The target server
         changeOrigin: true,
       },
     },
