@@ -11,7 +11,7 @@ export default defineConfig({
     // --- THIS IS WHERE THE FULL URL GOES ---
     proxy: {
       '/api': {
-        target: "https://shopsphere-ckoo.onrender.com", // The target server
+        target: "https://shop-sphere-so7u.onrender.com/", // The target server
         changeOrigin: true,
       },
     },

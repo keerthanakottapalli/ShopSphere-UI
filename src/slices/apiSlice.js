@@ -2,33 +2,33 @@
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// The base URL for our backend API
-const BASE_URL = '/api'; // Assumes your backend runs on the same host/port (using a proxy)
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 // 1. Create the Base Query function
 const baseQuery = fetchBaseQuery({
-  baseUrl: BASE_URL,
+  baseUrl: `${BASE_URL}/api`,
+  credentials: 'include',
+
   // Add this prepareHeaders function to inject the token
   prepareHeaders: (headers, { getState }) => {
-    // Get the user info from the Redux state
+    // Get the user info from the Redux state (assuming user slice stores the token)
     const token = getState().user.userInfo?.token;
-    
+
     // Check if a token exists and attach it as a Bearer token
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
     }
-    
+
     return headers;
   },
 });
 
 // 2. Create the API Slice
 export const apiSlice = createApi({
-  baseQuery, // Use the updated baseQuery with token injection
+  baseQuery, // Use the updated baseQuery
   tagTypes: ['Product', 'Order', 'User'],
   endpoints: (builder) => ({
-    // All your specific endpoints (productsApiSlice, usersApiSlice, ordersApiSlice)
-    // will inherit this baseQuery and get the token automatically
+    // All your specific endpoints will inherit this.
   }),
 });
 
